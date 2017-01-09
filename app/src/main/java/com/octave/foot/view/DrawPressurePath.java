@@ -21,22 +21,36 @@ public class DrawPressurePath extends View {
     private final Paint mGesturePaint = new Paint();
     private final Path mPath = new Path();
 
-    public DrawPressurePath(Context context) {
+    public DrawPressurePath(Context context)
+    {
         super(context);
         mGesturePaint.setAntiAlias(true);
         mGesturePaint.setStyle(Paint.Style.STROKE);
         mGesturePaint.setStrokeWidth(5);
-        mGesturePaint.setColor(Color.WHITE);
+        mGesturePaint.setColor(Color.BLACK);
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
-
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        // TODO Auto-generated method stub
+        switch (event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                touchDown(event);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                touchMove(event);
+        }
+        //更新绘制
+        invalidate();
+        return true;
     }
+
     @Override
     protected void onDraw(Canvas canvas)
     {
+        // TODO Auto-generated method stub
         super.onDraw(canvas);
         //通过画布绘制多点形成的图形
         canvas.drawPath(mPath, mGesturePaint);
@@ -45,6 +59,7 @@ public class DrawPressurePath extends View {
     //手指点下屏幕时调用
     private void touchDown(MotionEvent event)
     {
+
         //mPath.rewind();
         //重置绘制路线，即隐藏之前绘制的轨迹
         mPath.reset();
